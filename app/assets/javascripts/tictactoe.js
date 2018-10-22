@@ -39,3 +39,16 @@ function attachListeners() {
   $('#previous').on('click', () => showPreviousGames());
   $('#clear').on('click', () => resetBoard());
 }
+
+function checkWinner() {
+  var board = {};
+  var winner = false;
+
+  $('td').text((index, square) => board[index] = square);
+  WINNING_COMBOS.some(function(combo) {
+    if (board[combo[0]] !== "" && board[combo[0]] === board[combo[1]] && board[combo[1]] === board[combo[2]]) {
+      setMessage(`Player ${board[combo[0]]} Won!`);
+      return winner = true;
+    }
+  })
+}
