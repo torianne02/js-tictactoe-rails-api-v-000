@@ -53,3 +53,36 @@ function checkWinner() {
   });
   return winner;
 }
+
+function updateState(square) {
+  var token = player();
+  $(square).text(token);
+}
+
+function setMessage(string) {
+  $('#message').text(string);
+}
+
+function saveGame() {
+  var state = [];
+  var gameData; 
+
+  $('td').text((index, square) => {
+    state.push(square);
+  });
+
+  gameData = { state: state };
+
+  if (currentGame) {
+    $.ajax({
+      type: 'PATCH',
+      url: `/games/${currentGame}`,
+      data: gameData
+    });
+  } else {
+    $.post('/games', gameData, function(game) {
+      currentGame = game.data.id;
+      $('#games').append(`<button id="gameid-${game.data.id}">${game.data.id}</button><br>`);
+    })
+  }
+}
