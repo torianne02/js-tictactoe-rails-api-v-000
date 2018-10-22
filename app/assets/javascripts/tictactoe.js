@@ -120,5 +120,13 @@ function reloadGame(gameId) {
         index++;
       }
     }
-  }
+    turn = state.join('').length;
+    currentGame = id;
+
+    if (!checkWinner() && turn === 9) {
+      setMessage('Tie game.');
+    }
+  };
+
+  xhr.send(null);
 }
