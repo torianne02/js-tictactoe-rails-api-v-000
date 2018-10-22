@@ -8,4 +8,23 @@ $(document).ready(function() {
   attachListeners();
 });
 
-var player = () => turn % 2 ? 'O' : 'X'; 
+var player = () => turn % 2 ? 'O' : 'X';
+
+function doTurn(square) {
+  updateState(square);
+  turn++;
+  if (checkWinner()) {
+    saveGame();
+    resetBoard();
+  } else if (turn === 9) {
+    setMessage("Tie game.");
+    saveGame();
+    resetBoard();
+  }
+} 
+
+function resetBoard() {
+  $('td').empty();
+  turn = 0; 
+  currentGame = 0;
+}
