@@ -99,4 +99,25 @@ function showPreviousGames() {
 
 function buttonizePreviousGame(game) {
   $('#games').append(`<button id="gameid-${game.id}">${game.id}</button><br>`);
+  $(`#gameid-${game.id}`).on('click', () => reloadGame(game.id));
+}
+
+function reloadGame(gameId) {
+  document.getElementById('message').innerHTML = '';
+
+  const xhr = new XMLHttpRequest;
+  xhr.overrideMimeType('application/json');
+  xhr.open('GET', `/games/${gameId}`, true);
+  xhr.onload = () => {
+    const data = JSON.parse(xhr.responseText).data;
+    const id = data.id;
+    const state = data.attributes.state; 
+
+    let index = 0;
+    for (let y = 0; y < 3; y++) {
+      for (let x = 0; x < 3; x++) {
+        document.querySelector(`[data-x="${x}"][data-y="${y}"]`).innerHTML = state[index];
+      }
+    }
+  }
 }
