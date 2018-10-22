@@ -50,5 +50,6 @@ function checkWinner() {
       setMessage(`Player ${board[combo[0]]} Won!`);
       return winner = true;
     }
-  })
+  });
+  return winner;
 }
