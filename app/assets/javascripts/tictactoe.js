@@ -127,6 +127,5 @@ function reloadGame(gameId) {
       setMessage('Tie game.');
     }
   };
-
   xhr.send(null);
 }
